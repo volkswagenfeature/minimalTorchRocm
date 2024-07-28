@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "torchtest"
+version = "0.0.0"
+description = "A minimal attempt at recrating why I can't import torch with ROCM"
+authors = ["volkswagenfeature"]
+packages = [ ]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+
+# Literate programming
+torch = "*"
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/nightly/rocm6.0"
+priority = "supplemental"
+
+
+
+[tool.poetry.dev-dependencies]
+# build systems for dependencies
+hatchling = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0" ]
+build-backend = "poetry.core.masonry.api"
