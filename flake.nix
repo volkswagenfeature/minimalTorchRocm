@@ -14,20 +14,14 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [];
+        #overlays = [];
       };
-      inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv overrides;
 
-      myPythonApp = mkPoetryApplication { 
-        projectDir = ./.; 
-        overrides = overrides.withDefaults ( ( import ./overrides.nix ) nixpkgs );
-        buildInputs = [pkgs.nodejs pkgs.python311Packages.torch];
-      };
+      inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv overrides;
 
       myPythonEnv = mkPoetryEnv {
         projectDir = ./.;
-        overrides = overrides.withDefaults ( ( import ./overrides.nix ) nixpkgs );
-
+        #overrides = overrides.withDefaults (final: prev: { foo = null;  });
 
       };
 
@@ -41,40 +35,40 @@
             shopt -s nullglob
 
             lockfiles=(**/poetry.lock)
-            if [[ $lockfiles ]]; then
-              for lock in **/poetry.lock; do
+            pyprojects=(**/pyproject.toml)
+
+            if [[ ''${lockfiles[*]} ]]; then
+              for lock in $lockfiles; do
                 (
                   echo Updating "$lock"
                   cd "$(dirname "$lock")"
                   poetry update
                 )
               done
+            elif [[ ''${pyprojects[*]} ]]; then
+              echo "No lockfiles found, but pyproject.tomls found so creating them"
+              for lf in $pyprojects; do
+                (
+                  echo "Creating $(dirname "$lf")/poetry.lock"
+                  cd "$(dirname "$lf")"
+                  poetry update
+                )
+              done
             else
-              echo "No Lockfiles."
+              print "Nothing to do."
             fi
           '';
         };
     in
-    {
-      packages.${system}={  
-        default = myPythonApp;
-        enviroment = myPythonEnv;
-
-      };
-      apps.${system} = {
-        default = {  
-          type = "app";
-          # replace <script> with the name in the [tool.poetry.scripts] section of your pyproject.toml
-          program = "${myPythonEnv}/bin/jupyter-lab";
+      {
+        packages.${system}={  
+          default = myPythonEnv;
         };
-        update-lock = {
-          type = "app";
-          program = "${update-poetry-lock}/bin/update-poetry-lock";
-        };
-        jupytext = {
-          type = "app";
-          program = "${myPythonEnv}/bin/jupytext";
+        apps.${system} = {
+          update-lock = {
+            type = "app";
+            program = "${update-poetry-lock}/bin/update-poetry-lock";
+          };
         };
       };
-    };
 }
