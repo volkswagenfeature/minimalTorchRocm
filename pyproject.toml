@@ -7,8 +7,8 @@ packages = [ ]
 
 [tool.poetry.dependencies]
 python = ">=3.10"
-dummy_test = "*"
-#torch = {version = "*", source = "pytorch"}
+#dummy_test = "*"
+torch = {version = "*", source = "pytorch"}
 
 [[tool.poetry.source]]
 name = "pytorch"

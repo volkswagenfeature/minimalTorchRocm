@@ -27,12 +27,8 @@
 
       myPythonEnv = mkPoetryEnv {
         projectDir = ./.;
+
         overrides = overrides.withDefaults (final: prev: { 
-          dummy-test = prev.dummy-test.overridePythonAttrs (old: {
-            nativeBuildInputs = ( old.nativeBuildInputs or [] ) ++ [
-              final.setuptools
-            ];
-          });
         });
 
       };
