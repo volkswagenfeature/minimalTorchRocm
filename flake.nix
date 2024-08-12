@@ -9,6 +9,12 @@
 
   outputs = { self, nixpkgs, poetry2nix }:
     let
+      addNativeBuildInputs = prev: drvName: inputs: {
+        "${drvName}" = prev.${drvName}.overridePythonAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ inputs;
+        });
+      };
+
       system = "x86_64-linux";
       #pkgs = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
@@ -21,7 +27,13 @@
 
       myPythonEnv = mkPoetryEnv {
         projectDir = ./.;
-        #overrides = overrides.withDefaults (final: prev: { foo = null;  });
+        overrides = overrides.withDefaults (final: prev: { 
+          dummy-test = prev.dummy-test.overridePythonAttrs (old: {
+            nativeBuildInputs = ( old.nativeBuildInputs or [] ) ++ [
+              final.setuptools
+            ];
+          });
+        });
 
       };
 
