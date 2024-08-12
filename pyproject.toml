@@ -8,12 +8,12 @@ packages = [ ]
 [tool.poetry.dependencies]
 python = ">=3.10"
 #dummy_test = "*"
-torch = {version = "*", source = "pytorch"}
+torch = {version = "*", source = "pytorch", python = ">=3.10"}
 
 [[tool.poetry.source]]
 name = "pytorch"
 url = "https://download.pytorch.org/whl/nightly/rocm6.1"
-priority = "supplemental"
+priority = "explicit"
 
 
 

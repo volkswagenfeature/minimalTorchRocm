@@ -237,26 +237,7 @@ version = "3.0.0+21eae954ef"
 description = "A language and compiler for custom Deep Learning operations"
 optional = false
 python-versions = "*"
-files = [
-    {file = "pytorch_triton_rocm-3.0.0+21eae954ef-cp310-cp310-linux_x86_64.whl", hash = "sha256:9b4d4e7fb5f2e14b673f330c40ad1d194ff9f22bdba862135d60492ead10e0c1"},
-    {file = "pytorch_triton_rocm-3.0.0+21eae954ef-cp311-cp311-linux_x86_64.whl", hash = "sha256:0c1cb4f1940c7d6856a2a9a6c32033bf9e366e341653e17d4ea0ed108ed1c19e"},
-    {file = "pytorch_triton_rocm-3.0.0+21eae954ef-cp312-cp312-linux_x86_64.whl", hash = "sha256:b70cc06dc5216df560196f3020dd59c3ba9443697589bfd43388db62b14f4839"},
-    {file = "pytorch_triton_rocm-3.0.0+21eae954ef-cp38-cp38-linux_x86_64.whl", hash = "sha256:1dd30663acd68ea04455fcbe636de1a0ec30282816cf56c718d718f2eb1e23f3"},
-    {file = "pytorch_triton_rocm-3.0.0+21eae954ef-cp39-cp39-linux_x86_64.whl", hash = "sha256:9ab376a7c7664740944f23c67133d7e66246bf3274bb2cb999d64c150dd8fa85"},
-]
-
-[package.dependencies]
-filelock = "*"
-
-[package.extras]
-build = ["cmake (>=3.20)", "lit"]
-tests = ["autopep8", "flake8", "isort", "llnl-hatchet", "numpy", "pytest", "scipy (>=1.7.1)"]
-tutorials = ["matplotlib", "pandas", "tabulate"]
-
-[package.source]
-type = "legacy"
-url = "https://download.pytorch.org/whl/nightly/rocm6.1"
-reference = "pytorch"
+files = []
 
 [[package]]
 name = "sympy"
@@ -342,4 +323,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10"
-content-hash = "7147f7a197d5e8b49f9d8c50e079d524bb47ac4795cc2fc25a33614c86b27eca"
+content-hash = "b05128db8de9ae137a403d490640a7bba2ada243dd29fa8c640473c7f73132e2"
