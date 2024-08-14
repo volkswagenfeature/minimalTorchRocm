@@ -27,9 +27,10 @@
 
       myPythonEnv = mkPoetryEnv {
         projectDir = ./.;
-
+        preferWheels = true;
         overrides = overrides.withDefaults (final: prev: { 
           torch = prev.torch.overridePythonAttrs (old: {
+            format = "wheel";
             src = builtins.fetchurl {
               url = "https://download.pytorch.org/whl/nightly/rocm6.1/torch-2.5.0.dev20240812%2Brocm6.1-cp312-cp312-linux_x86_64.whl";
               hash = "";
